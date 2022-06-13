@@ -17,13 +17,14 @@
     "vue": "^3.0.0",
     "vue-cookies": "1.8.1",
     "vue-router": "^4.0.0",
-    "vuex": "^4.0.0",
-    "vue3-simple-alert": "1.0.4"
+    "vue-sessionstorage": "^1.0.0",
+    "vue3-simple-alert": "1.0.4",
+    "vuex": "^4.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-router": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
+    "@vue/cli-plugin-babel": "^5.0.4",
+    "@vue/cli-plugin-router": "^5.0.4",
+    "@vue/cli-service": "^5.0.4",
     "@vue/compiler-sfc": "^3.0.11",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
