@@ -216,6 +216,16 @@ ul li {
     height: 25%;
 }
 
+.btn_register {
+    padding: 7px 25px;
+    cursor: pointer;
+    font-size: 100%;
+    white-space: nowrap;
+    border-radius: 3px;
+    user-select: none;
+    height: 13%;
+}
+
 .btn--brand {
     background: #757471;
     color: #fff;
@@ -1561,16 +1571,7 @@ select {
     border: 2px solid #e2e2e2;
     margin-bottom: 15px;
     color: #3a3f43;
-}
-
-.txt--textarea {
-    height: 220px;
-    resize: none;
-}
-
-.btn--cancel {
-    background: #f04676 !important;
-    color: #fff !important;
+    font-size: 17px;
 }
 
 .btn--boxshadow-cancel {
@@ -1791,6 +1792,8 @@ table tbody tr:nth-child(2n+1) {
 .account {
     background: #fff;
     padding: 30px 0;
+    width: 65%;
+    margin: auto;
 }
 
 .account__title {
@@ -1813,18 +1816,7 @@ table tbody tr:nth-child(2n+1) {
 .txt::placeholder {
     text-align: left;
     padding: 0 12px;
-}
-
-.txt--left {
-    text-align: left
-}
-
-.txt--right {
-    text-align: right
-}
-
-.txt--left::placeholder {
-    text-align: left !important;
+    font-size: 17px;
 }
 
 .account__recoverpass {
@@ -1835,15 +1827,17 @@ table tbody tr:nth-child(2n+1) {
 
 .account__footer {
     padding: 12px 40px 12px;
-    background: rgba(0, 190, 214, .04);
+    background: rgba(138, 125, 4, 0.04);
     text-align: center;
     font-size: 14px;
     line-height: 1.467;
-    color: #6c757d;
+    color: #7b7b7b;
     margin-top: 15px;
 }
+
 .account__router{
-    color: #36b3fb;
+    cursor: pointer;
+    font-size: 14px;
 }
 
 .introduction {
@@ -1858,7 +1852,7 @@ table tbody tr:nth-child(2n+1) {
 
 a.logo { 
     cursor: default; 
-    display:block; 
+    display: block; 
     background: url(../img/twPortal_logo_m.png) no-repeat left top; 
     width: 100%; 
     height: 33px; 
@@ -1913,7 +1907,71 @@ a.logo {
     font-size: 20px;
     color:#bf9a0b;
     font-weight: 580;
-    margin-left: 115%;
+    margin-left: 50%;
     font-style:italic;
     width: 100%;
 }
+
+.register_password_apply {
+    margin-bottom: 1.7%;
+    margin-left: 1%;
+    color: red;
+    font-size: 15.5px;
+}
+
+.button_system_next_div {
+    margin-top: 2.2%;
+    margin-bottom: 8.5%;
+    text-align: right;
+    margin-right: 2.2%;
+}
+
+.button_system_next {
+    align-self: center;
+    background-color: #fff;
+    background-image: none;
+    background-position: 0 90%;
+    background-repeat: repeat no-repeat;
+    background-size: 4px 3px;
+    border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+    border-style: solid;
+    border-width: 2px;
+    box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+    box-sizing: border-box;
+    color: #41403e;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Neucha, sans-serif;
+    font-size: 1rem;
+    line-height: 23px;
+    outline: none;
+    padding: .75rem;
+    text-decoration: none;
+    transition: all 235ms ease-in-out;
+    border-bottom-left-radius: 15px 255px;
+    border-bottom-right-radius: 225px 15px;
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .button_system_next:hover {
+    box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+    transform: translate3d(0, 2px, 0);
+  }
+  
+  .button_system_next:focus {
+    box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+  }
+
+  a.architecture_img { 
+    cursor: default; 
+    display: block; 
+    background: url(../img/architecture.png) no-repeat left top; 
+    width: 100%; 
+    height: 580px; 
+    text-align: center;
+    margin-left: 6%;
+  }

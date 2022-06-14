@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "moment": "^2.29.1",
     "swiper": "^6.5.0",
+    "validator": "13.7.0",
     "vee-validate": "^4.3.5",
     "vue": "^3.0.0",
     "vue-cookies": "1.8.1",

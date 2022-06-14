@@ -56,7 +56,13 @@
               :class="{ 'header__dropdown--is-active': isAccountDropDown }"
             >
               <div class="header__dropdown-content" v-if="this.$store.state.user.userName">
-                <div class="header__account-link" v-on:click="handleLogout">登 出</div>        
+                <div class="header__account-link" v-on:click="handleLogout">登 出</div>  
+                <router-link
+                  :to="{ name: 'ResetPass' }"
+                  class="header__account-link"
+                  @click="showDropDownAccount"
+                  >修改密碼</router-link
+                >       
               </div>
               <div class="header__dropdown-content" v-else="this.$store.state.user.userName">
                 <router-link
@@ -64,6 +70,12 @@
                   class="header__account-link"
                   @click="showDropDownAccount"
                   >登 入</router-link
+                > 
+                <router-link
+                  :to="{ name: 'Register' }"
+                  class="header__account-link"
+                  @click="showDropDownAccount"
+                  >帳號申請</router-link
                 >         
               </div>
             </div>
@@ -99,6 +111,8 @@ export default {
       this.isAccountDropDown = !this.isAccountDropDown
     },
     handleLogout() {
+      this.showDropDownAccount();
+      
       VueSimpleAlert.confirm("請問您確定要登出嗎？").then(() => {
         let formData = new FormData();
         formData.append("DocuSky_SID", $cookies.get("DocuSky_SID"));
@@ -112,9 +126,7 @@ export default {
           headers: { "Content-Type": "multipart/form-data" },
         });   
         this.$store.commit('user/clearUserName');
-        this.showDropDownAccount();
-
-
+      
         // 清空 Cookie
         $cookies.remove("username");
         $cookies.remove("display_name");

@@ -4,21 +4,27 @@
       <div class="container">
         <h1 class="account__title">請輸入帳號密碼</h1>
         <div class="account__form">
-          <Form @submit="handleLogin">
+          <Form @submit="fieldCheck">
             <Field 
               type="text"
-              class="txt txt--left"
-              placeholder="Email"
-              name="email"
+              class="txt"
+              placeholder="帳號"
+              name="account"
             />
             <Field  
               type="password"
-              class="txt txt--left" 
-              placeholder="Password"
+              class="txt" 
+              placeholder="密碼"
               name="password"
             />
             <button class="btn btn--brand btn--boxshadow w--100">登 入</button>  
-          </form>
+            <div class="account__footer">
+              <span>尚未申請帳號？</span>
+              <router-link :to="{ name: 'Register' }" class="account__router"
+                >前往申請頁面</router-link
+              >
+            </div>
+          </Form>
         </div>
       </div>
     </div>
@@ -38,13 +44,23 @@ export default {
     Form,
     Field,
   },
-
   methods: {
+    fieldCheck(user) {
+      if (!(user.account && user.account.trim())) {
+        VueSimpleAlert.alert("帳號為必填欄位！");
+      } else {
+        if (!(user.password && user.password.trim())) {
+          VueSimpleAlert.alert("密碼為必填欄位！");
+        } else {
+          this.handleLogin(user);
+        }
+      }
+    },
     async handleLogin(user) {
       const storageObj = {};
 
       let formData = new FormData();
-      formData.append("dsUname", user.email);
+      formData.append("dsUname", user.account);
       formData.append("dsPword", user.password);
       axios({
         credentials: "include",
@@ -65,7 +81,7 @@ export default {
               credentials: "include",
               method: "get",
               url: "https://skolem.csie.ntu.edu.tw/DocuSky/webApi/getUserProfileJson.php",
-              params: { username: user.email, DocuSky_SID: storageObj.DocuSky_SID },
+              params: { username: user.account, DocuSky_SID: storageObj.DocuSky_SID },
               headers: { "Content-Type": "application/json" },
             })
             .then((res1) => {

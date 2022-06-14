@@ -1,9 +1,6 @@
 <template>
     <div>
-		<div class="wrap-inner innertube">
-			<h1 class="serif_type">相關連結</h1><hr class="divider">
-		</div>
-        
+		<PageTitle :title="{title: '相關連結'}" />
         <div class="tbody_link">
             <tbody>
                 <tr>
@@ -51,7 +48,12 @@
 
 
 <script>
+import PageTitle from '../components/PageTitle'
 export default {
   name: 'RelatedLink',
+
+components: {
+    PageTitle,
+  }
 }
 </script>

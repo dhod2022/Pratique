@@ -12,7 +12,10 @@ export default [
   {
     path: '/system',
     name: 'System',
-    component: () => import(/* webpackChunkName: "system" */ '../views/System.vue')
+    component: () => import(/* webpackChunkName: "system" */ '../views/System.vue'),
+    meta: {
+      next: 'OpendataIndex',
+    }
   },
   {
     path: '/relatedlink',
