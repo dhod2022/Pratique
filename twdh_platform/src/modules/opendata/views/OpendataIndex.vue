@@ -32,10 +32,34 @@
         <!-- 顯示 documents -->
         <div v-if="docs">
           <ul>
-            <li v-for="doc in docs" style="border:2px solid blue">
-              <div>{{doc.題名}}</div>
-              <div>{{doc.原始時間紀錄}}</div>
-              <div>{{doc.摘要}}</div>
+            <li v-for="doc in docs" class="docBlock">
+              <div class="docActions">
+                <form @submit.prevent="submit" class="docAction">
+                  <select v-model="copyTargetDir" class="selectList">
+                    <option v-for="dir in dirs" :value="dir">{{dir}}</option>
+                  </select>
+                  <button @click="copyDoc(doc.Metadata_ID)" class="docBtn">複製到其他資料夾</button>
+                </form>
+                <form @submit.prevent="submit" class="docAction">
+                  <select v-model="moveTargetDir" class="selectList">
+                    <option v-for="dir in dirs" :value="dir">{{dir}}</option>
+                  </select>
+                  <button @click="moveDoc(doc.Metadata_ID)" class="docBtn">移動到其他資料夾</button>
+                </form>
+                <button @click="removeDoc(doc.ID)" class="docBtn deleteBtn">刪除此文件</button>
+              </div>
+              <div class="rowBlock"><span class="tag-first">題名</span><span class="content-first">{{doc.題名}}</span></div>
+              <div class="rowBlock"><span class="tag">id</span><span class="content">{{doc.ID}}</span></div>
+              <div class="rowBlock"><span class="tag">metadata id</span><span class="content">{{doc.Metadata_ID}}</span></div>
+              <div class="rowBlock"><span class="tag">來源系統</span><span class="content">{{doc.來源系統}}</span></div>
+              <div class="rowBlock"><span class="tag">類目階層</span><span class="content">{{doc.類目階層}}</span></div>
+              <div class="rowBlock"><span class="tag">時間</span><span class="content">{{doc.原始時間記錄}}</span></div>
+              <div class="rowBlock"><span class="tag">相關人員</span><span class="content">{{doc.相關人員? doc.相關人員 : " - "}}</span></div>
+              <div class="rowBlock"><span class="tag">相關地點</span><span class="content">{{doc.相關地點? doc.相關地點 : " - "}}</span></div>
+              <div class="rowBlock"><span class="tag">相關組織</span><span class="content">{{doc.相關組織? doc.相關組織 : " - "}}</span></div>
+              <div class="rowBlock"><span class="tag">關鍵詞</span><span class="content">{{doc.關鍵詞? doc.關鍵詞 : " - "}}</span></div>
+              <div class="rowBlock"><span class="tag">原系統 URL</span><span class="content">{{doc.文件原系統頁面URL? doc.文件原系統頁面URL : " - "}}</span></div>
+              <div class="rowBlock"><span class="tag-last">摘要</span><span class="content-last">{{doc.摘要}}</span></div>
             </li>
           </ul>
         </div>
@@ -59,6 +83,9 @@ import axios from 'axios';
 import VueCookies from 'vue-cookies';
 
 let dirID = 1;
+let remoteBackend = "https://skolem.csie.ntu.edu.tw/OD/ODmission4/ODtest/";
+let localBackend = "http://127.0.0.1:80/ODserver/";
+let curBackend = localBackend;
 export default {
   name: 'OpendataIndex',
   data() {
@@ -73,7 +100,9 @@ export default {
       curDir: '',
       inDir: false,
       newDir: '',
-      csvFile: ''
+      csvFile: '',
+      copyTargetDir: '',
+      moveTargetDir: ''
     }
   },
   components: {
@@ -84,12 +113,13 @@ export default {
       axios({
           credentials: "include",
           method: "get",
-          url: "http://127.0.0.1:80/ODserver/listDir.php",
+          url: curBackend + "listDir.php",
           params: {username: this.username},
           headers: {"Content-Type": "application/json"},
           crossdomain: true,
       }).then(
           (response) => {
+            console.log(response.data);
             this.dirs = response.data;
             }
       ).catch(function(error){ 
@@ -98,11 +128,12 @@ export default {
         console.error(error);
       });
     },
+
     getDocs(dirName) {
       axios({
           credentials: "include",
           method: "get",
-          url: "http://127.0.0.1:80/ODserver/getData.php",
+          url: curBackend + "getData.php",
           params: {listDocs: dirName, username: this.username},
           headers: {"Content-Type": "application/json"},
           crossdomain: true,
@@ -129,12 +160,14 @@ export default {
       axios({
           credentials: "include",
           method: "get",
-          url: "http://127.0.0.1:80/ODserver/createDir.php",
+          url: curBackend + "createDir.php",
           params: {createDir: this.newDir, username: this.username},
           headers: {"Content-Type": "application/json"},
           crossdomain: true,
       }).then(
           (response) => {
+            console.log("fin create dir");
+            console.log(response.data);
             this.msg = response.data;
             alert(this.msg);
           }
@@ -146,11 +179,13 @@ export default {
       this.newDir = '';
       this.getDirList();
     },
+
     submitCSV(){
       let formData = new FormData();
       formData.append('submitCSV', this.csvFile);
       formData.append('username', this.username);
-      axios.post('http://127.0.0.1:80/ODserver/uploadCSV.php',
+      formData.append('dirName', this.curDir);
+      axios.post(curBackend + 'uploadCSV.php',
         formData,
         {
           header: {
@@ -169,15 +204,88 @@ export default {
         console.log('error in method submitCSV()');
         console.error(error);
       });
-      
     },
+    
     onChangeFileUpload(){
       this.csvFile = this.$refs.csvFile.files[0];
+    },
+
+    copyDoc(docMetaID) {
+      console.log(docMetaID);
+      console.log(this.copyTargetDir);
+      if(this.copyTargetDir == '') alert("請選擇目標資料夾後再點選此按鈕");
+      axios({
+          credentials: "include",
+          method: "get",
+          url: curBackend + "copyDoc.php",
+          params: {username: this.username, docID: docMetaID, targetDir: this.copyTargetDir},
+          headers: {"Content-Type": "application/json"},
+          crossdomain: true,
+      }).then(
+          (response) => {
+            console.log(response.data);
+            }
+      ).catch(function(error){ 
+        // Error handling
+        console.log("error: in method copyDoc()");
+        console.error(error);
+      });
+      this.copyTargetDir = '';
+    },
+
+    moveDoc(docMetaID) {
+      console.log(docMetaID);
+      console.log(this.moveTargetDir);
+      if(this.moveTargetDir == '') alert("請選擇目標資料夾後再點選此按鈕");
+      /*axios({
+          credentials: "include",
+          method: "get",
+          url: curBackend + "copyDoc.php",
+          params: {username: this.username, docID: docMetaID, targetDir: this.targetDir},
+          headers: {"Content-Type": "application/json"},
+          crossdomain: true,
+      }).then(
+          (response) => {
+            console.log(response.data);
+            }
+      ).catch(function(error){ 
+        // Error handling
+        console.log("error: in method copyDoc()");
+        console.error(error);
+      });
+      getDocs()
+      */
+      this.moveTargetDir = '';
+    },
+
+    removeDoc(docID) {
+      console.log(docID);
+      axios({
+          credentials: "include",
+          method: "get",
+          url: curBackend + "removeDoc.php",
+          params: {username: this.username, docID: docID},
+          headers: {"Content-Type": "application/json"},
+          crossdomain: true,
+      }).then(
+          (response) => {
+            console.log(response.data);
+            if(response.data == true) {
+              alert("刪除成功");
+            }
+            }
+      ).catch(function(error){ 
+        // Error handling
+        console.log("error: in method removeDoc()");
+        console.error(error);
+      });
+      this.getDocs(this.curDir);
     }
   },
   mounted() {
     this.displayName = $cookies.get("display_name");
     this.username = $cookies.get("username");
+    console.log(this.username);
     if(this.username != null) {
       this.login = true;
       this.getDirList();
@@ -253,4 +361,99 @@ export default {
   background: white;
   border-radius: 0px 0px 10px 10px;
 }
+
+.docBlock {
+  border:2px solid #317284;
+  margin: 10px;
+}
+
+.rowBlock {
+  display: flex;
+  flex-direction: row;
+}
+
+.tag {
+  color: white;
+  background-color: #317284;
+  width: 15%;
+  border-bottom: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tag-first {
+  color: white;
+  background-color: #317284;
+  width: 15%;
+  border-bottom: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tag-last {
+  color: white;
+  background-color: #317284;
+  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  padding: 3px;
+  width: 85%;
+  border-bottom: 2px solid #317284;
+}
+
+.content-first {
+  padding: 3px;
+  width: 85%;
+  border-top: 2px solid #317284;
+  border-bottom: 2px solid #317284;
+}
+
+.content-last {
+  padding: 3px;
+  width: 85%;
+}
+
+.docActions {
+  display: flex;
+  flex-direction: row;
+  background-color: #f9eebe;
+  position: relative;
+}
+
+.docAction {
+  width: 45%;
+}
+
+.selectList {
+  background-color: #f0ede1;
+  position: relative;
+  display: inline;
+  width: 60%;
+  height: 30px;
+  border-radius: 2px;
+  padding: 5px;
+}
+
+.docBtn {
+  background-color: #f0ede1;
+  position: relative;
+  height: 30px;
+  border-radius: 2px;
+  padding: 5px;
+  border-left: 2px solid #317284;
+  border-right: 2px solid #317284;
+}
+
+.deleteBtn {
+  position: absolute;
+  right: 0px;
+  border-right: 0px solid #317284;
+}
+
 </style>
