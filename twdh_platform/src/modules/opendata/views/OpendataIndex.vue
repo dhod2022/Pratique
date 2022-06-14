@@ -19,7 +19,15 @@
       </table>
     </div>
     <div class="metaBlock">
-      [metadata 後分類]
+      <div v-if="inDir">
+        <div>
+            <button @click="removeDir()" class="removeDirBtn">刪除此資料夾</button>
+          </div>
+        <br><br>
+        <div>
+          [metadata 後分類]
+        </div>
+      </div>
     </div>
     <div class="contentBlock">
       <div v-if="inDir">
@@ -45,7 +53,7 @@
                   </select>
                   <button @click="moveDoc()" class="docBtn">將勾選資料移動到其他資料夾</button>
               </form>
-              <button @click="removeDoc()" class="docBtn deleteBtn">刪除勾選的文件</button>
+              <button @click="removeDoc()" class="docBtn deleteBtn">刪除勾選資料</button>
           </div>
           <ul>
             <li v-for="doc in docs" class="docBlock" :key="doc.ID">
@@ -78,10 +86,10 @@
     <h2 style="padding-left:20px">請先登入</h2>
   </div>
   <div style="display:flex;justify-content: center;">
-    <div class="button_system_prev_div" style="position:relative;right:30%;">
+    <div class="button_system_prev_div" style="position:relative;right:34%;">
       <button class="button_system_prev" @click="prevPage">← 返回史料脈絡分析系統</button>
     </div>
-    <div class="button_system_next_div" style="position:relative;left:30%;">
+    <div class="button_system_next_div" style="position:relative;left:34%;">
       <button class="button_system_next" @click="nextPage">前往 T-DocuSky 服務 →</button>
     </div>
   </div>
@@ -104,7 +112,6 @@ export default {
       username: '',
       login: false,
       dirs: [],
-      dir0: [],
       docs: '',
       noDocs: true,
       curDir: '',
@@ -192,6 +199,36 @@ export default {
       this.getDirList();
     },
 
+    removeDir() {
+      if(confirm("確認要刪除此資料夾與當中的所有文件？") == true) {
+        axios({
+            credentials: "include",
+            method: "get",
+            url: curBackend + "removeDir.php",
+            params: {removeDir: this.curDir, username: this.username},
+            headers: {"Content-Type": "application/json"},
+            crossdomain: true,
+        }).then(
+            (response) => {
+              console.log(response.data);
+              alert(response.data);
+            }
+        ).catch(function(error){ 
+          // Error handling 
+          console.log("error: in method removeDir()");
+          console.error(error);
+        });
+        this.curDir = '';
+        this.getDirList();
+        this.checkedDocs = [];
+        this.copyTargetDir = '';
+        this.moveTargetDir = '';
+        this.inDir = false;
+        this.docs = '';
+        this.noDocs = true;
+      }
+    },
+
     submitCSV(){
       let formData = new FormData();
       formData.append('submitCSV', this.csvFile);
@@ -245,15 +282,16 @@ export default {
               crossdomain: true,
           }).then(
               (response) => {
+                console.log("in copy response");
                 console.log(response.data);
-                }
+              }
           ).catch(function(error){ 
             // Error handling
             console.log("error: in method copyDoc()");
             console.error(error);
           })
         )
-
+        alert("成功複製文件");
         this.copyTargetDir = ''
       }
     },
@@ -282,14 +320,14 @@ export default {
           }).then(
               (response) => {
                 console.log(response.data);
-                }
+              }
           ).catch(function(error){ 
             // Error handling
             console.log("error: in method moveDoc()");
             console.error(error);
           })
         )
-
+        alert("成功移動文件");
         this.getDocs(this.curDir);
         this.moveTargetDir = '';
       }
@@ -297,29 +335,31 @@ export default {
 
     removeDoc() {
       console.log(this.checkedDocs);
-      this.checkedDocs.forEach(doc =>
-          axios({
-              credentials: "include",
-              method: "get",
-              url: curBackend + "removeDoc.php",
-              params: {username: this.username, docID: doc.ID},
-              headers: {"Content-Type": "application/json"},
-              crossdomain: true,
-          }).then(
-              (response) => {
-                console.log(response.data);
-                if(response.data == true) {
-                  alert("刪除成功");
+      if(confirm("確認要刪除這些文件嗎？") == true) {
+        this.checkedDocs.forEach(doc =>
+            axios({
+                credentials: "include",
+                method: "get",
+                url: curBackend + "removeDoc.php",
+                params: {username: this.username, docID: doc.ID},
+                headers: {"Content-Type": "application/json"},
+                crossdomain: true,
+            }).then(
+                (response) => {
+                  console.log(response.data);
+                  if(response.data == true) {
+                    alert("刪除成功");
+                  }
                 }
-              }
-          ).catch(function(error){ 
-            // Error handling
-            console.log("error: in method removeDoc()");
-            console.error(error);
-          })
-        )
-      
-      this.getDocs(this.curDir);
+            ).catch(function(error){ 
+              // Error handling
+              console.log("error: in method removeDoc()");
+              console.error(error);
+            })
+          )
+        
+        this.getDocs(this.curDir);
+      }
     },
 
     prevPage(){
@@ -470,46 +510,53 @@ export default {
 .docActions {
   display: flex;
   flex-direction: row;
-  background-color: #f9eebe;
   position: relative;
-  border: 2px solid #317284;
   margin: 10px 0px 10px 0px;
+  font-size: 18px;
 }
 
 .docAction {
-  width: 45%;
 }
 
 .selectList {
   background-color: #f0ede1;
   position: relative;
   display: inline;
-  width: 40%;
   height: 30px;
   border-radius: 0px;
+  border: 2px solid #317284;
   padding: 5px;
-
+  top: -3px;
 }
 
 .docBtn {
-  background-color: #f0ede1;
+  background-color: #e2d396;
   position: relative;
   height: 30px;
-  border-radius: 2px;
+  border-radius: 0px;
   padding: 5px;
-  border-left: 2px solid #317284;
-  border-right: 2px solid #317284;
+  border: 2px solid #317284;
 }
 
 .deleteBtn {
   position: absolute;
   right: 0px;
-  border-right: 0px solid #317284;
+  background-color: #e20b0b;
+  color: white;
 }
 
 .checkBox {
   width: 20px;
   height: 20px;
+}
+
+.removeDirBtn {
+  background-color: red;
+  color: white;
+  border: 2px solid black;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 5px;
 }
 
 </style>
