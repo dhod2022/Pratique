@@ -1,5 +1,6 @@
 <template>
-  <h1>TdocuSky Index Page.</h1>
+  <h2>T-DocuSky 線上編輯表單</h2>
+
   <b-alert :show="isShowAlert" fade variant="warning">
     {{ alertMessage }}
   </b-alert>
@@ -45,8 +46,6 @@ import { registerAllModules } from 'handsontable/registry';
 import VueMultiselect from 'vue-multiselect' // for vue3 multiselect
 import 'handsontable/dist/handsontable.full.css';
 import 'vue-multiselect/dist/vue-multiselect.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue-3/dist/bootstrap-vue-3.css';
 
 // register Handsontable's modules
 registerAllModules();
