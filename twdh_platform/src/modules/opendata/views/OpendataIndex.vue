@@ -31,23 +31,25 @@
         <button v-on:click="submitCSV()">Upload</button>
         <!-- 顯示 documents -->
         <div v-if="docs">
-          <ul>
-            <li v-for="doc in docs" class="docBlock">
-              <div class="docActions">
-                <form @submit.prevent="submit" class="docAction">
+          <div class="docActions">
+            <form @submit.prevent="submit" class="docAction">
                   <select v-model="copyTargetDir" class="selectList">
                     <option v-for="dir in dirs" :value="dir">{{dir}}</option>
                   </select>
-                  <button @click="copyDoc(doc.Metadata_ID)" class="docBtn">複製到其他資料夾</button>
-                </form>
-                <form @submit.prevent="submit" class="docAction">
+                  <button @click="copyDoc()" class="docBtn">將勾選資料複製到其他資料夾</button>
+              </form>
+
+              <form @submit.prevent="submit" class="docAction">
                   <select v-model="moveTargetDir" class="selectList">
                     <option v-for="dir in dirs" :value="dir">{{dir}}</option>
                   </select>
-                  <button @click="moveDoc(doc.Metadata_ID)" class="docBtn">移動到其他資料夾</button>
-                </form>
-                <button @click="removeDoc(doc.ID)" class="docBtn deleteBtn">刪除此文件</button>
-              </div>
+                  <button @click="moveDoc()" class="docBtn">將勾選資料移動到其他資料夾</button>
+              </form>
+              <button @click="removeDoc()" class="docBtn deleteBtn">刪除勾選的文件</button>
+          </div>
+          <ul>
+            <li v-for="doc in docs" class="docBlock" :key="doc.ID">
+              <input type="checkbox" v-model="checkedDocs" :value="doc" class="checkBox"/>
               <div class="rowBlock"><span class="tag-first">題名</span><span class="content-first">{{doc.題名}}</span></div>
               <div class="rowBlock"><span class="tag">id</span><span class="content">{{doc.ID}}</span></div>
               <div class="rowBlock"><span class="tag">metadata id</span><span class="content">{{doc.Metadata_ID}}</span></div>
@@ -102,7 +104,8 @@ export default {
       newDir: '',
       csvFile: '',
       copyTargetDir: '',
-      moveTargetDir: ''
+      moveTargetDir: '',
+      checkedDocs: []
     }
   },
   components: {
@@ -141,6 +144,7 @@ export default {
           (response) => {
             this.docs = response.data.list;
             this.curDir = response.data.dirName;
+            this.checkedDocs = [];
             console.log("docs: ");
             console.log(this.docs[0]);
             if(this.docs[0] == null) {
@@ -210,75 +214,103 @@ export default {
       this.csvFile = this.$refs.csvFile.files[0];
     },
 
-    copyDoc(docMetaID) {
-      console.log(docMetaID);
+    copyDoc() {
+      let stopCopy = false;
       console.log(this.copyTargetDir);
-      if(this.copyTargetDir == '') alert("請選擇目標資料夾後再點選此按鈕");
-      axios({
-          credentials: "include",
-          method: "get",
-          url: curBackend + "copyDoc.php",
-          params: {username: this.username, docID: docMetaID, targetDir: this.copyTargetDir},
-          headers: {"Content-Type": "application/json"},
-          crossdomain: true,
-      }).then(
-          (response) => {
-            console.log(response.data);
-            }
-      ).catch(function(error){ 
-        // Error handling
-        console.log("error: in method copyDoc()");
-        console.error(error);
-      });
-      this.copyTargetDir = '';
+      if(this.copyTargetDir == '') {
+        alert("請選擇目標資料夾後再點選此按鈕");
+        stopCopy = true;
+      }
+      if(this.copyTargetDir === this.curDir) {
+        alert("請選擇當前資料夾以外的資料夾");
+        stopCopy = true;
+      }
+
+      if(!stopCopy) {
+        this.checkedDocs.forEach(doc =>
+          axios({
+              credentials: "include",
+              method: "get",
+              url: curBackend + "copyDoc.php",
+              params: {username: this.username, docID: doc.Metadata_ID, targetDir: this.copyTargetDir},
+              headers: {"Content-Type": "application/json"},
+              crossdomain: true,
+          }).then(
+              (response) => {
+                console.log(response.data);
+                }
+          ).catch(function(error){ 
+            // Error handling
+            console.log("error: in method copyDoc()");
+            console.error(error);
+          })
+        )
+
+        this.copyTargetDir = ''
+      }
+    },
+   
+    moveDoc() {
+      let stopMove = false;
+      console.log(this.checkedDocs);
+      if(this.moveTargetDir == '') {
+        alert("請選擇目標資料夾後再點選此按鈕");
+        stopMove = true;
+      }
+      if(this.moveTargetDir === this.curDir) {
+        alert("請選擇當前資料夾以外的資料夾");
+        stopMove = true;
+      }
+
+      if(!stopMove) {
+        this.checkedDocs.forEach(doc =>
+          axios({
+              credentials: "include",
+              method: "get",
+              url: curBackend + "moveDoc.php",
+              params: {username: this.username, docID: doc.ID, docMetaID: doc.Metadata_ID, targetDir: this.moveTargetDir},
+              headers: {"Content-Type": "application/json"},
+              crossdomain: true,
+          }).then(
+              (response) => {
+                console.log(response.data);
+                }
+          ).catch(function(error){ 
+            // Error handling
+            console.log("error: in method moveDoc()");
+            console.error(error);
+          })
+        )
+
+        this.getDocs(this.curDir);
+        this.moveTargetDir = '';
+      }
     },
 
-    moveDoc(docMetaID) {
-      console.log(docMetaID);
-      console.log(this.moveTargetDir);
-      if(this.moveTargetDir == '') alert("請選擇目標資料夾後再點選此按鈕");
-      /*axios({
-          credentials: "include",
-          method: "get",
-          url: curBackend + "copyDoc.php",
-          params: {username: this.username, docID: docMetaID, targetDir: this.targetDir},
-          headers: {"Content-Type": "application/json"},
-          crossdomain: true,
-      }).then(
-          (response) => {
-            console.log(response.data);
-            }
-      ).catch(function(error){ 
-        // Error handling
-        console.log("error: in method copyDoc()");
-        console.error(error);
-      });
-      getDocs()
-      */
-      this.moveTargetDir = '';
-    },
-
-    removeDoc(docID) {
-      console.log(docID);
-      axios({
-          credentials: "include",
-          method: "get",
-          url: curBackend + "removeDoc.php",
-          params: {username: this.username, docID: docID},
-          headers: {"Content-Type": "application/json"},
-          crossdomain: true,
-      }).then(
-          (response) => {
-            console.log(response.data);
-            if(response.data == true) {
-              alert("刪除成功");
-            }
-            }
-      ).catch(function(error){ 
-        // Error handling
-        console.log("error: in method removeDoc()");
-        console.error(error);
-      });
+    removeDoc() {
+      console.log(this.checkedDocs);
+      this.checkedDocs.forEach(doc =>
+          axios({
+              credentials: "include",
+              method: "get",
+              url: curBackend + "removeDoc.php",
+              params: {username: this.username, docID: doc.ID},
+              headers: {"Content-Type": "application/json"},
+              crossdomain: true,
+          }).then(
+              (response) => {
+                console.log(response.data);
+                if(response.data == true) {
+                  alert("刪除成功");
+                }
+              }
+          ).catch(function(error){ 
+            // Error handling
+            console.log("error: in method removeDoc()");
+            console.error(error);
+          })
+        )
+      
       this.getDocs(this.curDir);
     }
   },
@@ -424,6 +456,8 @@ export default {
   flex-direction: row;
   background-color: #f9eebe;
   position: relative;
+  border: 2px solid #317284;
+  margin: 10px 0px 10px 0px;
 }
 
 .docAction {
@@ -434,10 +468,11 @@ export default {
   background-color: #f0ede1;
   position: relative;
   display: inline;
-  width: 60%;
+  width: 40%;
   height: 30px;
-  border-radius: 2px;
+  border-radius: 0px;
   padding: 5px;
+
 }
 
 .docBtn {
@@ -454,6 +489,11 @@ export default {
   position: absolute;
   right: 0px;
   border-right: 0px solid #317284;
+}
+
+.checkBox {
+  width: 20px;
+  height: 20px;
 }
 
 </style>
