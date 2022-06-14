@@ -77,6 +77,14 @@
   <div v-else>
     <h2 style="padding-left:20px">請先登入</h2>
   </div>
+  <div style="display:flex;justify-content: center;">
+    <div class="button_system_prev_div" style="position:relative;right:30%;">
+      <button class="button_system_prev" @click="prevPage">← 返回史料脈絡分析系統</button>
+    </div>
+    <div class="button_system_next_div" style="position:relative;left:30%;">
+      <button class="button_system_next" @click="nextPage">前往 T-DocuSky 服務 →</button>
+    </div>
+  </div>
 </template>
 
 
@@ -312,7 +320,15 @@ export default {
         )
       
       this.getDocs(this.curDir);
-    }
+    },
+
+    prevPage(){
+      this.$router.push({ name: this.$router.currentRoute.value.meta.prev });
+    },
+
+    nextPage(){
+      this.$router.push({ name: this.$router.currentRoute.value.meta.next });
+    },
   },
   mounted() {
     this.displayName = $cookies.get("display_name");
