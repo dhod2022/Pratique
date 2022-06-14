@@ -58,10 +58,8 @@ export default {
     },
     async handleLogin(user) {
       const storageObj = {};
-      $cookies.set("username", "workshop04", "58min");
-      $cookies.set("display_name", "workshop04", "58min");
-      // $cookies.set("DocuSky_SID", storageObj.DocuSky_SID, "58min");
-      /*let formData = new FormData();
+
+      let formData = new FormData();
       formData.append("dsUname", user.account);
       formData.append("dsPword", user.password);
       axios({
@@ -108,7 +106,6 @@ export default {
             VueSimpleAlert.alert("登入失敗，請檢查帳號密碼輸入正確後重新登入。");
           }
       }).catch((error) => { console.log(error); });
-      */
     },
   },
 }
