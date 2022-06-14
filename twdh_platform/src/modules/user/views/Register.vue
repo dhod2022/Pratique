@@ -11,7 +11,7 @@
               placeholder="電子信箱"
               name="email"
             />
-            <span class="register_password_apply">*本中心同意後，密碼將寄至此信箱</span>
+            <span class="register_password_apply">* 本中心同意後，密碼將寄至此信箱</span>
             <Field 
               type="text"
               class="txt"
@@ -64,9 +64,9 @@ export default {
   methods: {
     handleRegisterCheck(account) {
       if (!(account.email && account.email.trim())) {
-        VueSimpleAlert.alert("信箱為必填欄位！");
+        VueSimpleAlert.alert("電子信箱為必填欄位！");
       } else if (!(validator.isEmail(account.email.trim()))) {
-        VueSimpleAlert.alert("請填寫有效且格式正確的信箱！");
+        VueSimpleAlert.alert("請填寫有效且格式正確的電子信箱！");
       } else if (!(account.realname && account.realname.trim())) {
         VueSimpleAlert.alert("姓名為必填欄位！");
       } else if (!(account.job_title && account.job_title.trim())) {

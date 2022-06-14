@@ -14,4 +14,9 @@ export default [
     name: 'ResetPass',
     component: () => import(/* webpackChunkName: "resetpass" */ '../views/ResetPass.vue')
   },
+  {
+    path: '/forgetpass',
+    name: 'ForgetPass',
+    component: () => import(/* webpackChunkName: "forgetpass" */ '../views/ForgetPass.vue')
+  },
 ]

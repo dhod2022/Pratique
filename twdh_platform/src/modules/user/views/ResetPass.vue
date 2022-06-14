@@ -24,6 +24,8 @@
               name="new_psw_again"
             />
             <button class="btn btn--brand btn--boxshadow w--100">送 出</button> 
+            <div class="account__footer_resetpass">       
+            </div>
           </Form>
         </div>
       </div>
@@ -48,7 +50,7 @@ export default {
       userNameLabel: $cookies.get("display_name"),
     };
   },
-    methods: {
+  methods: {
     resetCheck(resetObj) {
       if (!(resetObj.old_psw && resetObj.old_psw.trim())) {
         VueSimpleAlert.alert("舊密碼為必填欄位！");

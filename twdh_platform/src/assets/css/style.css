@@ -213,7 +213,8 @@ ul li {
     white-space: nowrap;
     border-radius: 3px;
     user-select: none;
-    height: 25%;
+    height: 10.5%;
+    margin-bottom: 5%;
 }
 
 .btn_register {
@@ -223,7 +224,17 @@ ul li {
     white-space: nowrap;
     border-radius: 3px;
     user-select: none;
-    height: 13%;
+    height: 7.5%;
+}
+
+.btn_forget {
+    padding: 7px 25px;
+    cursor: pointer;
+    font-size: 95%;
+    white-space: nowrap;
+    border-radius: 3px;
+    user-select: none;
+    height: 12%;
 }
 
 .btn--brand {
@@ -1827,10 +1838,17 @@ table tbody tr:nth-child(2n+1) {
     width: 100%;
 }
 
+.forget__span {
+    font-size: 18.5px;
+    margin-top: 2%;
+    margin-bottom: 9%;
+    margin-left: 19.5%;
+}
+
 .txt::placeholder {
     text-align: left;
     padding: 0 12px;
-    font-size: 17px;
+    font-size: 15px;
 }
 
 .account__recoverpass {
@@ -1846,12 +1864,30 @@ table tbody tr:nth-child(2n+1) {
     font-size: 14px;
     line-height: 1.467;
     color: #7b7b7b;
-    margin-top: 15px;
+    margin-top: 4%;
+    margin-bottom: 20%;
 }
 
-.account__router{
+.account__footer_resetpass {
+    padding: 12px 40px 12px;
+    line-height: 1.467;
+    margin-top: 4%;
+    margin-bottom: 16%;
+}
+
+.account__router {
     cursor: pointer;
     font-size: 14px;
+}
+
+.forgetpass__router {
+    cursor: pointer;
+    font-size: 15.5px;   
+    line-height: 1.467;
+}
+
+.forgetpass__router:hover {
+    color: #4eacde;
 }
 
 .introduction {
@@ -1902,9 +1938,9 @@ a.logo {
 
 .tbody_link {
     text-align: left;
-    font-size: 22px;
+    font-size: 21.5px;
     margin-left: 42%;
-    margin-top: 3%;
+    margin-top: 3.1%;
     margin-bottom: 6.5%;
 }
 

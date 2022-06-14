@@ -17,7 +17,10 @@
               placeholder="密碼"
               name="password"
             />
-            <button class="btn btn--brand btn--boxshadow w--100">登 入</button>  
+            <button class="btn btn--brand btn--boxshadow w--100">登 入</button>
+              <router-link :to="{ name: 'ForgetPass' }" class="forgetpass__router"
+                >忘記密碼？</router-link
+              >
             <div class="account__footer">
               <span>尚未申請帳號？</span>
               <router-link :to="{ name: 'Register' }" class="account__router"
@@ -99,8 +102,9 @@ export default {
             })    
 
             VueSimpleAlert.alert("登入成功!");  
-            // 轉址到前一頁
-            this.$router.go(-1);
+            // 轉址到首頁
+            // this.$router.go(-1); 轉址到前一頁
+            this.$router.push("/"); 
           } else {          
             VueSimpleAlert.alert("登入失敗，請檢查帳號密碼輸入正確後重新登入。");
           }
