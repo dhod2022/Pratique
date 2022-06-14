@@ -34,6 +34,9 @@
 
   <hot-table ref="userTable" v-show="isShowTable" :settings="hotSettings"></hot-table>
 
+  <div class="button_system_prev_div">
+    <button class="button_system_prev" @click="prevPage">← 前往 Open Data 服務</button>
+  </div>
 </template>
 
 <script>
@@ -82,6 +85,9 @@ export default {
     };
   },
   methods: {
+    prevPage() {
+      this.$router.push({ name: 'OpendataIndex' });
+    },
     customLabel({ headerName, field }) {
       return `${headerName} (${field})`
     },
