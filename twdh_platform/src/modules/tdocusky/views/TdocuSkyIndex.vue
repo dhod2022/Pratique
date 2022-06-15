@@ -1,5 +1,5 @@
 <template>
-  <h2>T-DocuSky 線上編輯表單</h2>
+  <h2 style="font-weight:bold;">T-DocuSky 線上編輯表單</h2>
 
   <b-alert :show="isShowAlert" fade variant="warning">
     {{ alertMessage }}
@@ -11,33 +11,41 @@
       :options="options" :multiple="true" :custom-label="customLabel">
     </VueMultiselect>
   </div>
-
-  <b-button @click="generateTable">Generate</b-button>
-  <label> Row number: </label>
-  <input type="number" id="row-num" name="row-num" min="1" max="100" value="10">
-  <b-button @click="reorganizeTable">Reorganize</b-button>
-  <b-button @click="extractTable">Extract</b-button>
-  <b-button @click="rewindTable">Rewind</b-button>
+  
+  <div>
+    <b-button-group>
+      <b-button variant="secondary" @click="generateTable">Generate</b-button>
+      <div style="width: 28%; padding-top:1.3%;">
+        <label>&nbsp; Row number:</label>
+        <input type="number" id="row-num" name="row-num" min="1" max="100" value="10">  
+      </div>
+      <b-button variant="secondary" @click="reorganizeTable">Reorganize</b-button>
+      <b-button variant="secondary" @click="extractTable">Extract</b-button>
+      <b-button variant="secondary" @click="rewindTable">Rewind</b-button>
+    </b-button-group>
+  </div>
 
   <form>
-    <div class="form-group">
-      <label for="upload">Select .csv files:</label>
-      <input class="btn btn-default" id="csv-file" type=file accept=".csv" name="files[]" size=30 multiple="multiple">
+    <div class="form-group uploadBtn_margin">
+      <label for="upload">&nbsp;  Select .csv files:  &nbsp;&nbsp;&nbsp;&nbsp;</label>
+      <input class="form-control" id="csv-file" type=file accept=".csv" name="files[]" size=30 multiple="multiple">
     </div>
   </form>
 
-  <b-button @click="importCSV">Import CSV</b-button>
-  <b-button @click="toEN">EN</b-button>
-  <b-button @click="toTW">TW</b-button>
-  <b-button @click="undoHot">UNDO</b-button>
-  <b-button @click="redoHot">REDO</b-button>
-  <b-button @click="exportCSV">Export CSV</b-button>
-
-  <hot-table ref="userTable" v-show="isShowTable" :settings="hotSettings"></hot-table>
-
-  <div class="button_system_prev_div">
-    <button class="button_system_prev" @click="prevPage">← 前往 Open Data 服務</button>
+  <div>
+    <b-button-group>
+      <b-button variant="secondary" @click="importCSV">Import CSV</b-button>
+      <b-button variant="secondary" @click="toEN">EN</b-button>
+      <b-button variant="secondary" @click="toTW">TW</b-button>
+      <b-button variant="secondary" @click="undoHot">UNDO</b-button>
+      <b-button variant="secondary" @click="redoHot">REDO</b-button>
+      <b-button variant="secondary" @click="exportCSV">Export CSV</b-button>
+   </b-button-group>
   </div>
+
+  <div class="userTable_margintop"><hot-table ref="userTable" v-show="isShowTable" :settings="hotSettings"></hot-table></div>
+
+  <ButtonPrev :label="{label: '← 前往 Open Data 服務'}" />
 </template>
 
 <script>
@@ -46,6 +54,7 @@ import { registerAllModules } from 'handsontable/registry';
 import VueMultiselect from 'vue-multiselect' // for vue3 multiselect
 import 'handsontable/dist/handsontable.full.css';
 import 'vue-multiselect/dist/vue-multiselect.css';
+import ButtonPrev from '../../../components/ButtonPrev'
 
 // register Handsontable's modules
 registerAllModules();
@@ -55,6 +64,7 @@ export default {
   components: {
     VueMultiselect,
     HotTable,
+    ButtonPrev,
   },
   data: function () {
     return {
@@ -84,9 +94,6 @@ export default {
     };
   },
   methods: {
-    prevPage() {
-      this.$router.push({ name: 'OpendataIndex' });
-    },
     customLabel({ headerName, field }) {
       return `${headerName} (${field})`
     },
@@ -479,5 +486,14 @@ const columnDefinition = [
 
 .handsontable .white-bg {
   background-color: white;
+}
+
+.uploadBtn_margin {
+  margin-top: -1%;
+   margin-bottom: 1%;
+}
+
+.userTable_margintop {
+  margin-top: -2%;
 }
 </style>
