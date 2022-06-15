@@ -111,7 +111,7 @@ import ButtonPrev from '../../../components/ButtonPrev';
 let dirID = 1;
 let remoteBackend = "https://skolem.csie.ntu.edu.tw/OD/ODmission4/ODtest/";
 let localBackend = "http://127.0.0.1:80/ODserver/";
-let curBackend = remoteBackend;
+let curBackend = localBackend;
 export default {
   name: 'OpendataIndex',
   data() {
