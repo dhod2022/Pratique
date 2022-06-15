@@ -1,7 +1,7 @@
 export default [
   {
-    path: '/tdocuSkyIndex',
+    path: '/tdocuskyIndex',
     name: 'TdocuSkyIndex',
-    component: () => import(/* webpackChunkName: "tdocuSkyIndex" */ '../views/TdocuSkyIndex.vue')
+    component: () => import(/* webpackChunkName: "tdocuskyIndex" */ '../views/TdocuSkyIndex.vue')
   },
 ]
