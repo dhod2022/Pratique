@@ -103,7 +103,7 @@ import VueCookies from 'vue-cookies';
 let dirID = 1;
 let remoteBackend = "https://skolem.csie.ntu.edu.tw/OD/ODmission4/ODtest/";
 let localBackend = "http://127.0.0.1:80/ODserver/";
-let curBackend = localBackend;
+let curBackend = remoteBackend;
 export default {
   name: 'OpendataIndex',
   data() {
