@@ -41,7 +41,8 @@ class MetadataCrawlerNDAP(MetadataCrawlerBase):
 			if i<=ROW_WITH_DATA:
 				i+=1
 				continue
-			ids.append(row[ID_COL][2:-1])
+			tmp = (row[ID_COL]).replace('=', '').replace('"', '')
+			ids.append(tmp)
 
 		return ids
 
