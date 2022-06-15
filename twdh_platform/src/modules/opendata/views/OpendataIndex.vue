@@ -86,6 +86,9 @@
     <h2 style="padding-left:20px">請先登入</h2>
   </div>
   <div>
+  	<button v-on:click="UploadDocuXML2DocuSky">mission 5 button</button>
+  </div>
+  <div>
     <div style="margin-top: 5%;"><ButtonPrev :label="{label: '← 返回 史料脈絡分析系統'}" /></div>
     <div style="margin-top: -11.8%;"><ButtonNext :label="{label: '前往 T-DocuSky 服務 →'}" /></div>
   </div>
@@ -97,7 +100,24 @@ import axios from 'axios';
 import VueCookies from 'vue-cookies';
 import ButtonNext from '../../../components/ButtonNext';
 import ButtonPrev from '../../../components/ButtonPrev';
+import tsainiancheng_mission5 from '../js/tsai.js';
 
+const default_mapping = {'id': 'filename', '來源系統': 'doc_source', '來源系統縮寫': 'metadata/doc_source', '文件原系統頁面URL': 'metadata/doc_source_href',
+	'題名': 'title', '摘要': 'doc_content', '類目階層': 'metadata/爹', '西元年': 'year_for_grouping', '起始時間': 'timeseq_not_before', '結束時間': 'timeseq_not_after',
+	'典藏號': 'metadata/collection_number',
+	'相關人員': 'metatags/PersonName', '相關地點': 'metatags/PlaceName', '相關組織': 'metatags/Organization', '關鍵詞': 'metatags/Keywords'}; // [original]另外處理
+const default_config = {
+	'db_name': 'default',
+	'corpus': 'Mycorpus',
+	'DocuXML_filename': 'DocuXML',
+	'mapping': default_mapping,
+};
+// const uploadXMLURL = "https://skolem.csie.ntu.edu.tw/DocuSky/webApi/uploadXmlFilesToBuildDbJson.php";
+const uploadXMLURL = "https://skolem.csie.ntu.edu.tw/DocuSky/webApi/test.php";
+// const uploadXMLURL = "https://docusky.org.tw/DocuSky/devTools/CatTreeLite2/test/uploadXmlFilesToBuildDbJson.php";
+var filename_col, doc_content_col;
+var metadata_cols, metatags_cols, original_cols;
+var col_arr;
 
 
 let dirID = 1;
@@ -362,6 +382,18 @@ export default {
         this.getDocs(this.curDir);
       }
     },
+    
+      	UploadDocuXML2DocuSky(data, config={}) {
+      		data = [{ "id": "1", '來源系統': 'doc_source'}];
+      		config = null;
+		config = Object.assign({}, default_config, config);
+		config['DocuXML_filename'] = config['DocuXML_filename'] + '.xml';
+		let docuXML = tsainiancheng_mission5.processing(data, config);
+
+		docuskyManageDbListSimpleUI.uploadMultipart(docuXML, function(data) {console.log(data);}, function() {console.log("failed");});
+
+		return docuXML["file"]["value"];
+	},
   },
   mounted() {
     this.displayName = $cookies.get("display_name");
