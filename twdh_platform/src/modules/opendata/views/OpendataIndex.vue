@@ -85,8 +85,10 @@
   <div v-else>
     <h2 style="padding-left:20px">請先登入</h2>
   </div>
-  <ButtonPrev :label="{label: '← 返回 史料脈絡分析系統'}" />
-  <ButtonNext :label="{label: '前往 T-DocuSky 服務 →'}" />
+  <div>
+    <div style="margin-top: 5%;"><ButtonPrev :label="{label: '← 返回 史料脈絡分析系統'}" /></div>
+    <div style="margin-top: -11.8%;"><ButtonNext :label="{label: '前往 T-DocuSky 服務 →'}" /></div>
+  </div>
 </template>
 
 

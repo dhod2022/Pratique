@@ -45,7 +45,7 @@
 
   <div class="userTable_margintop"><hot-table ref="userTable" v-show="isShowTable" :settings="hotSettings"></hot-table></div>
 
-  <ButtonPrev :label="{label: '← 前往 Open Data 服務'}" />
+  <ButtonPrev :label="{label: '← 返回 Open Data 服務'}" />
 </template>
 
 <script>

@@ -1970,10 +1970,10 @@ a.logo {
 }
 
 .button_system_prev_div {
-  margin-top: 2.2%;
-  margin-bottom: 8.5%;
+  margin-top: 4%;
+  margin-bottom: 8%;
   text-align: left;
-  margin-left: 2.2%;
+  margin-left: 2.05%;
 }
 
 .button_system_prev {
@@ -2017,10 +2017,10 @@ a.logo {
 }
 
 .button_system_next_div {
-    margin-top: 2.2%;
-    margin-bottom: 8.5%;
+    margin-top: 4%;
+    margin-bottom: 8%;
     text-align: right;
-    margin-right: 2.2%;
+    margin-right: 2.05%;
 }
 
 .button_system_next {
