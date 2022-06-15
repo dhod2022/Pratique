@@ -97,6 +97,7 @@ export default {
               // storageObj 存入 Cookie
               $cookies.set("display_name", storageObj.display_name, "58min");
               $cookies.set("DocuSky_SID", storageObj.DocuSky_SID, "58min");
+              localStorage.setItem("display_name", storageObj.display_name);
 
               this.$store.commit('user/setUserName', `${res1.data.message.display_name} ~`);
             })    
