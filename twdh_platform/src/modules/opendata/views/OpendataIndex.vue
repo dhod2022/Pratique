@@ -86,7 +86,7 @@
     <h2 style="padding-left:20px">請先登入</h2>
   </div>
   <div>
-  	<button v-on:click="UploadDocuXML2DocuSky">mission 5 button</button>
+  	<button @click="UploadDocuXML2DocuSky()">mission 5 button</button>
   </div>
   <div>
     <div style="margin-top: 5%;"><ButtonPrev :label="{label: '← 返回 史料脈絡分析系統'}" /></div>
@@ -102,8 +102,8 @@ import ButtonNext from '../../../components/ButtonNext';
 import ButtonPrev from '../../../components/ButtonPrev';
 import tsainiancheng_mission5 from '../js/tsai.js';
 
-const default_mapping = {'id': 'filename', '來源系統': 'doc_source', '來源系統縮寫': 'metadata/doc_source', '文件原系統頁面URL': 'metadata/doc_source_href',
-	'題名': 'title', '摘要': 'doc_content', '類目階層': 'metadata/爹', '西元年': 'year_for_grouping', '起始時間': 'timeseq_not_before', '結束時間': 'timeseq_not_after',
+const default_mapping = {'Metadata_ID': 'filename', '來源系統': 'doc_source', '來源系統縮寫': 'metadata/doc_source', '文件原系統頁面URL': 'metadata/doc_source_href',
+	'題名': 'title', '摘要': 'doc_content', '類目階層': 'metadata/category_level', '西元年': 'year_for_grouping', '起始時間': 'timeseq_not_before', '結束時間': 'timeseq_not_after',
 	'典藏號': 'metadata/collection_number',
 	'相關人員': 'metatags/PersonName', '相關地點': 'metatags/PlaceName', '相關組織': 'metatags/Organization', '關鍵詞': 'metatags/Keywords'}; // [original]另外處理
 const default_config = {
@@ -383,16 +383,40 @@ export default {
       }
     },
     
-      	UploadDocuXML2DocuSky(data, config={}) {
-      		data = [{ "id": "1", '來源系統': 'doc_source'}];
-      		config = null;
-		config = Object.assign({}, default_config, config);
-		config['DocuXML_filename'] = config['DocuXML_filename'] + '.xml';
-		let docuXML = tsainiancheng_mission5.processing(data, config);
+      	UploadDocuXML2DocuSky(config={}) {
+      		SessionKey = "DocuSky_SID=" + $cookies.get("DocuSky_SID");
+      		var data;
+	      axios({
+		  credentials: "include",
+		  method: "get",
+		  url: curBackend + "getData.php",
+		  params: {listDocs: "a", username: this.username},
+		  headers: {"Content-Type": "application/json"},
+		  crossdomain: true,
+	      }).then(
+		  (response) => {
+		  	data = response.data.list;
+			for (let i in data)
+				for (const [key, value] of Object.entries(data[i]))
+					data[i][key] = (data[i][key]===null)? '':data[i][key].toString();
+			console.log(data);
+	      		config = null;
+			config = Object.assign({}, default_config, config);
+			config['DocuXML_filename'] = config['DocuXML_filename'] + '.xml';
+			var docuXML = tsainiancheng_mission5.processing(data, config);
 
-		docuskyManageDbListSimpleUI.uploadMultipart(docuXML, function(data) {console.log(data);}, function() {console.log("failed");});
+			docuskyManageDbListSimpleUI.uploadMultipart(docuXML, function(data) {alert("上傳成功");},
+				function() {alert("上傳失敗");});
+			
+			axios.post("https://skolem.csie.ntu.edu.tw/OD/tsainiancheng/saveDocuXML.php", {docuXML: docuXML["file"]["value"], filename: "DocuXML.xml"}).then(function(response) {
+				
+			});
+		   }
+	      );
+		
 
-		return docuXML["file"]["value"];
+
+		//return docuXML["file"]["value"];
 	},
   },
   mounted() {
@@ -425,6 +449,24 @@ export default {
       console.log("error: in method mounted(): getting username from server");
       console.error(error);
     })
+    
+      let jqueryScript = document.createElement('script');
+      jqueryScript.setAttribute('src', 'https://code.jquery.com/jquery-3.4.1.js');
+      let docuScript = document.createElement('script');
+      docuScript.setAttribute('src', 'https://skolem.csie.ntu.edu.tw/DocuSky/js.ui/docusky.ui.manageDbListSimpleUI.js');
+      
+      // prevent double loading script
+	let jqueryflag = 1, docuWidgetsflag = 1;
+	for (let node of document.head.childNodes) {
+		if (node["src"] == 'https://code.jquery.com/jquery-3.4.1.js')
+			jqueryflag = 0;
+		if (node["src"] == 'https://skolem.csie.ntu.edu.tw/DocuSky/js.ui/docusky.ui.manageDbListSimpleUI.js')
+			docuWidgetsflag = 0;
+		}
+	if (jqueryflag == 1)		
+	      document.head.appendChild(jqueryScript);
+	if (docuWidgetsflag == 1)
+		document.head.appendChild(docuScript);
   }
   
 }
