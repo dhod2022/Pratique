@@ -1,6 +1,6 @@
 <template>
-  <div class="wrap-inner innertube">
-    <h1 class="serif_type">{{ title.title }}</h1><hr class="divider">
+  <div style="margin-top: 100px; text-align:center;">
+    <p class="fs-2" style="font-weight:bold;">{{ title.title }}</p>
   </div>
 </template>
 

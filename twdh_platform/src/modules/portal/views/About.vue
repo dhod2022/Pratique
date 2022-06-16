@@ -1,6 +1,15 @@
 <template>
-  <PageTitle :title="{title: '臺灣史料數位人文學術研究平台'}" />
-  <div class="about">
+  <div>
+		<PageTitle :title="{title: '臺灣史料數位人文學術研究平台'}" />
+    <div style="text-align:center;"> 
+      <svg height="25" width="25" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Cloudy</title><path d="M100.18 241.19a15.93 15.93 0 0013.37-13.25C126.6 145.59 186.34 96 256 96c64.69 0 107.79 42.36 124.92 87a16.11 16.11 0 0012.53 10.18C449.36 202.06 496 239.21 496 304c0 66-54 112-120 112H116c-55 0-100-27.44-100-88 0-54.43 43.89-80.81 84.18-86.81z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/></svg>
+    </div>
+  </div>
+
+
+
+
+  <div>
     <span  style="margin-left: 2.5%; margin-top: 3%; margin-bottom: 2%;"><h2>平台介紹</h2></span>
     <div class="introduction">
       歡迎使用<span style="font-weight: bold"><h3>&nbsp;&nbsp;臺灣史料數位人文學術研究平台！</h3></span><br>
@@ -15,10 +24,7 @@
       <a class="architecture_img"></a>	
     </div>
 
-    <span  style="margin-left: 2.5%; margin-top: 5%; margin-bottom: 2%;"><h2>教學文件</h2></span>
-    <div class="introduction">
-			xxx.pdf
-    </div>
+   
 
     <span  style="margin-bottom: 8%;"></span>
   </div>

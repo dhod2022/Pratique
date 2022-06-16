@@ -1,15 +1,11 @@
 <template>
-  <main class="main">
-    <div class="container">
-      <div class="header__top">
-        <div class="header__top-content">
-          <a class="logo"></a>	
-          <span class="header__top-l" style="font-size:1.75cm;font-weight:bold;">臺灣史料數位人文學術研究平台</span><br>
-        </div>
-      </div>
-      <Material />
-    </div>
-  </main>
+  <div style="margin-top: 120px;">
+    <img src="../../../assets/img/twPortal_logo_m.png" class="figure-img img-fluid rounded">
+    <p class="fs-1 text-center"><span style="font-weight:bold; color: #363636;">臺灣史料數位人文學術研究平台</span></p><br>
+  </div>
+  <div style="margin-bottom: 200px;">
+    <Material />
+  </div>
 </template>
 
 <script>
@@ -41,3 +37,17 @@ export default {
   }
 }
 </script>
+
+
+
+<style>
+  a.logo {     
+    display: block; 
+    width: 100%; 
+    height: 33px; 
+    margin: 11px auto 0 auto;
+  }
+</style>
+
+
+

@@ -8,8 +8,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
 import VuePapaParse from 'vue-papa-parse'
 import './assets/css/font.css'
-import './assets/css/style.css'
-import './assets/css/responsives.css'
+// import './assets/css/style.css'
+// import './assets/css/responsives.css'
 
 createApp(App)
   .use(router)
