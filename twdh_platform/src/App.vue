@@ -23,8 +23,12 @@ export default {
   methods: {
   },
 
+  // 初始化判斷登出狀態
   created() {
-  }
+    if (!($cookies.isKey("display_name"))) {
+      localStorage.removeItem("display_name");
+    }
+  },
 }
 </script>
 

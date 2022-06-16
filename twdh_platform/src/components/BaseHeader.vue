@@ -43,7 +43,8 @@
           </div>
 
           <div>
-            <div class="showUser">{{ showLoginUser }}</div>
+            <div class="showUser_login" v-if="this.$store.state.user.userName">{{ this.$store.state.user.userName }}</div>
+            <div class="showUser_logout" v-else="this.$store.state.user.userName">歡迎使用平台~</div>
           </div>
 
           <div class="header__account">
@@ -101,9 +102,6 @@ export default {
   }),
 
   computed: {
-    showLoginUser() {
-      return  this.$store.state.user.userName;
-    },
   },
 
   methods: {
@@ -130,6 +128,7 @@ export default {
         // 清空 Cookie
         $cookies.remove("display_name");
         $cookies.remove("DocuSky_SID");
+        localStorage.removeItem("display_name");
         
         // 轉址到首頁
         this.$router.push("/");
@@ -137,11 +136,13 @@ export default {
     },
   },
 
-  mounted() {
-  },
 
-  unmounted() {
-  }
+  // 初始化判斷登入狀態
+  created() {
+    if ("display_name" in localStorage && $cookies.isKey("display_name")) {
+      this.$store.commit('user/setUserName', `${localStorage.getItem("display_name")} ~`);
+    }
+  },
 }
 </script>
 
