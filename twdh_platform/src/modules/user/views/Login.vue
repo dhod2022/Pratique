@@ -47,15 +47,6 @@ export default {
     Form,
     Field,
   },
-  mounted() {
-      let jqueryScript = document.createElement('script')
-      jqueryScript.setAttribute('src', 'https://code.jquery.com/jquery-3.4.1.js')
-      document.head.appendChild(jqueryScript);
-      
-      let docujqueryScript = document.createElement('script')
-      docujqueryScript.setAttribute('src', 'https://docusky.org.tw/DocuSky/js.ui/docusky.ui.manageDbListSimpleUI_backup.js')
-      document.head.appendChild(docujqueryScript);
-    },
   methods: {
     fieldCheck(user) {
       if (!(user.account && user.account.trim())) {
@@ -109,7 +100,6 @@ export default {
               localStorage.setItem("display_name", storageObj.display_name);
 
               this.$store.commit('user/setUserName', `${res1.data.message.display_name} ~`);
-              docuskyManageDbListSimpleUI.login(user.account, user.password, function(){console.log("OK");}, function(){console.log("DENIED");} );
             })    
 
             VueSimpleAlert.alert("登入成功!");  
