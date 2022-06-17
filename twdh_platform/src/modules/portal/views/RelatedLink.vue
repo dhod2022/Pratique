@@ -37,7 +37,7 @@
     </div>
 
 
-    <div style="margin-bottom: 450px;"></div>
+    <div style="margin-bottom: 280px;"></div>
 </template>
 
 

@@ -29,11 +29,29 @@
                 >臺灣史料脈絡分析系統</router-link
               >
             </li>
-            <li class="nav-item">
-              <router-link :to="{ name: 'OpendataIndex' }" class="nav-link"
-                >Open Data</router-link
-              >
-            </li>      
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Open Data
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <router-link 
+                    :to="{ name: 'Retrieval' }" 
+                    class="dropdown-item"
+                  >整合檢索</router-link
+                  >
+                </li>
+                <li>
+                  <router-link 
+                    :to="{ name: 'OpendataIndex' }" 
+                    class="dropdown-item"
+                  >Open Data 服務</router-link
+                  >
+                </li>        
+              </ul>
+            </li>
+
+
             <li class="nav-item">
               <router-link :to="{ name: 'TdocuSkyIndex' }" class="nav-link"
                 >T-DocuSky</router-link

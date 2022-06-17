@@ -8,4 +8,9 @@ export default [
       next: 'TdocuSkyIndex',
     }
   },
+  {
+    path: '/retrieval',
+    name: 'Retrieval',
+    component: () => import(/* webpackChunkName: "retrieval" */ '../views/Retrieval.vue')
+  },
 ]

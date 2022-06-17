@@ -1,56 +1,106 @@
 <template>
-  <div style="margin-top: 60px;">
-    <div style="width: 37%; margin-left: auto; margin-right: auto;" id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page">民 國</a>
+    </li>
+  </ul>
+
+
+  <div class="container">
+    <div class="row" style="margin-top: 50px; margin-left: 60px;">
+
+      <div class="col">
+        <div class="card" style="width: 22rem; text-align:center">
+          <a href="http://ahdas.drnh.gov.tw/" target="_blank" style="text-decoration:none;color:black;">
+            <div>
+              <img :src="require(`@/assets/img/slider/1.jpg`)" 
+                alt="國史館檔案史料文物查詢系統"
+                class="card-img-top"                 
+                />
+            </div> 
+            <div class="card-body">
+              <p class="card-text">國史館檔案史料文物查詢系統</p>
+            </div>                       
+          </a>
+        </div>   
       </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="3000">
-          <a href="https://onlinearchives.th.gov.tw/index.php?act=Archive" target="_blank">
-            <img src="@/assets/img/slider/1.jpg" class="d-block w-100">
+
+      <div class="col">
+        <div class="card" style="width: 22rem; text-align:center">
+          <a href="https://onlinearchives.th.gov.tw/index.php?act=Archive" target="_blank" style="text-decoration:none;color:black;">
+            <div>
+              <img :src="require(`@/assets/img/slider/2.jpg`)" 
+                alt="國史館檔案史料文物查詢系統"
+                class="card-img-top"                 
+                />
+            </div> 
+            <div class="card-body">
+              <p class="card-text">國史館臺灣文獻館文獻檔案查詢系統</p>
+            </div>                       
           </a>
-        </div>
-        <div class="carousel-item" data-bs-interval="3000"> 
-          <a href="http://ahdas.drnh.gov.tw/" target="_blank">
-            <img src="@/assets/img/slider/2.jpg" class="d-block w-100">
-          </a>
-        </div>
-        <div class="carousel-item" data-bs-interval="3000">
-          <a href="https://drtpa.th.gov.tw/" target="_blank">
-            <img src="@/assets/img/slider/3.jpg" class="d-block w-100">
-          </a>
-        </div>
-        <div class="carousel-item" data-bs-interval="3000">
-          <a href="http://journal.th.gov.tw/" target="_blank">
-            <img src="@/assets/img/slider/4.jpg" class="d-block w-100">
-          </a>
-        </div>
+        </div>   
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
+
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row" style="margin-top: 50px; margin-left: 60px;">
+
+      <div class="col">
+        <div class="card" style="width: 22rem; text-align:center">
+          <a href="https://drtpa.th.gov.tw/" target="_blank" style="text-decoration:none;color:black;">
+            <div>
+              <img :src="require(`@/assets/img/slider/3.jpg`)" 
+                alt="國史館檔案史料文物查詢系統"
+                class="card-img-top"                 
+                />
+            </div> 
+            <div class="card-body">
+              <p class="card-text">臺灣省議會史料總庫</p>
+            </div>                       
+          </a>
+        </div>   
+      </div>
+
+      <div class="col">
+        <div class="card" style="width: 22rem; text-align:center">
+          <a href="http://journal.th.gov.tw/" target="_blank" style="text-decoration:none;color:black;">
+            <div>
+              <img :src="require(`@/assets/img/slider/4.jpg`)" 
+                alt="國史館檔案史料文物查詢系統"
+                class="card-img-top"                 
+                />
+            </div> 
+            <div class="card-body">
+              <p class="card-text">中華民國地方議會議事錄總庫</p>
+            </div>                       
+          </a>
+        </div>   
+      </div>
+
     </div>
   </div>
 
 
+   
+
+    
+
+
+     
+
+
+
+
+
+
+ 
 </template>
 
 
+
 <script>
-import Swiper from 'swiper'
-import 'swiper/swiper-bundle.css'
-import SwiperCore, { Navigation } from 'swiper/core'
-
-SwiperCore.use([Navigation])
-
 export default {
   name: 'Material',
 }

@@ -1,5 +1,16 @@
 <template>
-  <h2 style="font-weight:bold;">T-DocuSky 線上編輯表單</h2>
+  <div>
+		<PageTitle :title="{title: 'T-DocuSky'}" />
+    <div style="text-align:center;">
+      <svg height="25.5" width="25.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-5h2v5zm4 0h-2v-3h2v3zm0-5h-2v-2h2v2zm4 5h-2V7h2v10z"/></svg>
+    </div>
+  </div>
+  <div style="margin-top: 20px;margin-bottom: 100px; text-align: center">
+    <button type="button" class="btn btn-outline-primary"  @click="prevPage">← 返回 Open Data 服務</button>
+  </div>
+
+
+
 
   <b-alert :show="isShowAlert" fade variant="warning">
     {{ alertMessage }}
@@ -15,9 +26,9 @@
   <div>
     <b-button-group>
       <b-button variant="secondary" @click="generateTable">Generate</b-button>
-      <div style="width: 28%; padding-top:1.3%;">
+      <div style="width: 150px; padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
         <label>&nbsp; Row number:</label>
-        <input type="number" id="row-num" name="row-num" min="1" max="100" value="10">  
+        <input class="form-control" type="number" id="row-num" name="row-num" min="1" max="100" value="10">  
       </div>
       <b-button variant="secondary" @click="reorganizeTable">Reorganize</b-button>
       <b-button variant="secondary" @click="extractTable">Extract</b-button>
@@ -26,7 +37,7 @@
   </div>
 
   <form>
-    <div class="form-group uploadBtn_margin">
+    <div class="form-group">
       <label for="upload">&nbsp;  Select .csv files:  &nbsp;&nbsp;&nbsp;&nbsp;</label>
       <input class="form-control" id="csv-file" type=file accept=".csv" name="files[]" size=30 multiple="multiple">
     </div>
@@ -43,8 +54,12 @@
    </b-button-group>
   </div>
 
-  <div class="userTable_margintop"><hot-table ref="userTable" v-show="isShowTable" :settings="hotSettings"></hot-table></div>
+  <hot-table ref="userTable" v-show="isShowTable" :settings="hotSettings"></hot-table>
 
+
+
+
+  <div style="margin-bottom: 150px;"></div>
 </template>
 
 <script>
@@ -53,6 +68,7 @@ import { registerAllModules } from 'handsontable/registry';
 import VueMultiselect from 'vue-multiselect' // for vue3 multiselect
 import 'handsontable/dist/handsontable.full.css';
 import 'vue-multiselect/dist/vue-multiselect.css';
+import PageTitle from '../../portal/components/PageTitle'
 
 
 // register Handsontable's modules
@@ -63,6 +79,7 @@ export default {
   components: {
     VueMultiselect,
     HotTable,
+    PageTitle,
   },
   data: function () {
     return {
@@ -92,6 +109,9 @@ export default {
     };
   },
   methods: {
+    prevPage(){
+      this.$router.push({ name: this.$router.currentRoute.value.meta.prev });
+    },
     customLabel({ headerName, field }) {
       return `${headerName} (${field})`
     },
@@ -484,14 +504,5 @@ const columnDefinition = [
 
 .handsontable .white-bg {
   background-color: white;
-}
-
-.uploadBtn_margin {
-  margin-top: -1%;
-   margin-bottom: 1%;
-}
-
-.userTable_margintop {
-  margin-top: -2%;
 }
 </style>
