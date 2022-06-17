@@ -45,7 +45,6 @@
 
   <div class="userTable_margintop"><hot-table ref="userTable" v-show="isShowTable" :settings="hotSettings"></hot-table></div>
 
-  <ButtonPrev :label="{label: '← 返回 Open Data 服務'}" />
 </template>
 
 <script>
@@ -54,7 +53,7 @@ import { registerAllModules } from 'handsontable/registry';
 import VueMultiselect from 'vue-multiselect' // for vue3 multiselect
 import 'handsontable/dist/handsontable.full.css';
 import 'vue-multiselect/dist/vue-multiselect.css';
-import ButtonPrev from '../../../components/ButtonPrev'
+
 
 // register Handsontable's modules
 registerAllModules();
@@ -64,7 +63,6 @@ export default {
   components: {
     VueMultiselect,
     HotTable,
-    ButtonPrev,
   },
   data: function () {
     return {

@@ -1,65 +1,46 @@
 <template>
-  <div class="slider">
-    <div class="slider__head">
-      <span class="slider__title">民 國</span>
-    </div>
-    <div class="slider__content">
-      <div class="swiper-container" ref="sliderSwiper">
-        <div class="swiper-wrapper">
-          
-            <div class="card">
-                <a href="http://ahdas.drnh.gov.tw/" target="_blank">
-                    <div class="card__image">
-                        <img :src="require(`@/assets/img/slider/1.jpg`)" 
-                                alt="國史館檔案史料文物查詢系統"
-                                class="card__img"
-                        />
-                    </div>
-                    <div class="card__title">國史館檔案史料文物查詢系統</div>
-                    <div class="card_content">系統建置：國史館</div>                
-                 </a>
-            </div>
-            <div class="card">
-                <a href="https://onlinearchives.th.gov.tw/index.php?act=Archive" target="_blank">
-                    <div class="card__image">
-                        <img :src="require(`@/assets/img/slider/2.jpg`)" 
-                                alt="國史館臺灣文獻館文獻檔案查詢系統"
-                                class="card__img"
-                        />
-                     </div>
-                    <div class="card__title">國史館臺灣文獻館文獻檔案查詢系統</div>
-                    <div class="card_content">系統建置：國史館臺灣文獻館</div> 
-				        </a>						 
-            </div>
-            <div class="card">
-                <a href="https://drtpa.th.gov.tw/" target="_blank">
-                    <div class="card__image">
-                        <img :src="require(`@/assets/img/slider/3.jpg`)" 
-                                alt="臺灣省議會史料總庫"
-                                class="card__img"
-                        />
-                    </div>
-                    <div class="card__title">臺灣省議會史料總庫</div>
-                    <div class="card_content">系統建置：臺灣省諮議會</div>
-				        </a>		
-			      </div>			 
-            <div class="card">
-                <a href="http://journal.th.gov.tw/" target="_blank">
-                    <div class="card__image">
-                        <img :src="require(`@/assets/img/slider/4.jpg`)" 
-                                alt="中華民國地方議會議事錄總庫"
-                                class="card__img"
-                        />
-                    </div>
-                    <div class="card__title">中華民國地方議會議事錄總庫</div>
-                    <div class="card_content">系統建置：臺灣省諮議會及各地方議會</div> 
-				        </a>			
-			      </div>
-  		
+  <div style="margin-top: 60px;">
+    <div style="width: 37%; margin-left: auto; margin-right: auto;" id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="3000">
+          <a href="https://onlinearchives.th.gov.tw/index.php?act=Archive" target="_blank">
+            <img src="@/assets/img/slider/1.jpg" class="d-block w-100">
+          </a>
+        </div>
+        <div class="carousel-item" data-bs-interval="3000"> 
+          <a href="http://ahdas.drnh.gov.tw/" target="_blank">
+            <img src="@/assets/img/slider/2.jpg" class="d-block w-100">
+          </a>
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+          <a href="https://drtpa.th.gov.tw/" target="_blank">
+            <img src="@/assets/img/slider/3.jpg" class="d-block w-100">
+          </a>
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+          <a href="http://journal.th.gov.tw/" target="_blank">
+            <img src="@/assets/img/slider/4.jpg" class="d-block w-100">
+          </a>
         </div>
       </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
   </div>
+
+
 </template>
 
 

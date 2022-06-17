@@ -10,7 +10,13 @@
 
 
   <Material />
-  <ButtonNext :label="{label: '前往 Open Data 服務 →'}" />
+  <div style="margin-top: 20px; text-align: right">
+    <button type="button" class="btn btn-outline-primary"  @click="nextPage">前往 Open Data 服務 →</button>
+  </div>
+
+
+
+  <div style="margin-bottom: 150px;"></div>
 </template>
 
 
@@ -18,7 +24,6 @@
 <script>
 import Material from '../components/Material'
 import PageTitle from '../components/PageTitle'
-import ButtonNext from '../../../components/ButtonNext'
 
 
 export default {
@@ -27,9 +32,11 @@ export default {
   components: {
     Material,
     PageTitle,
-    ButtonNext,
   },
   methods:{
+    nextPage(){
+      this.$router.push({ name: this.$router.currentRoute.value.meta.next });
+    },
   },
 } 
 </script>

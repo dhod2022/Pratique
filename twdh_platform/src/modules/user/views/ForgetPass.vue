@@ -1,28 +1,29 @@
 <template>
-  <main class="main">
-    <div class="account">
-      <div class="container">
-        <h1 class="account__title">忘記密碼</h1>
-        <span class="forget__span">請輸入原帳號（電子信箱），密碼將會被重置並寄送至您的信箱。<br>
-              麻煩再請使用者登入逕行修改密碼。
-        </span>
-        <div class="account__form">
-          <Form @submit="forgetCheck">
-            <Field 
-              type="text"
-              class="txt"
-              placeholder="電子信箱"
-              name="email"
-            />        
-            <button class="btn_forget btn--brand btn--boxshadow w--100">送 出</button> 
-            <div style="margin-bottom: 60%">       
-            </div>
-          </Form>
-        </div>
-      </div>
+  <div style="margin-top: 200px;">
+    <div style="text-align: center; margin-bottom: 50px;"><h3>忘記密碼</h3></div>
+    <div style="text-align: left; margin-bottom: 50px; font-size: 15.5px;">
+      <span class="forget__span">請輸入原帳號（電子信箱），密碼將會被重置並寄送至您的信箱。<br>
+      麻煩再請使用者登入逕行修改密碼。
+    </span>
     </div>
-  </main>
+    <div>
+      <Form @submit="forgetCheck">
+        <label class="form-label">電子信箱：</label>
+        <Field 
+          type="text"
+          class="form-control form-control-lg"
+          name="email"
+        /><br>
+        <div class="d-grid gap-2" style="margin-top: 20px;">
+          <button class="btn btn-primary">送 出</button>      
+        </div>
+      </Form>
+    </div>
+  </div>
+
+  <div style="margin-bottom: 100px;"></div>
 </template>
+
 
 <script>
 import { Form, Field } from "vee-validate";

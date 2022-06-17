@@ -8,49 +8,36 @@
         </div>
 
 
-        <div>
-            <tbody>
+        <div style="margin-top: 90px;text-align:center; font-size: 18px;">
+            <table style="margin-left: auto;margin-rigth: auto;">
                 <tr>
-                    <td>
-                        <li>
-                            <span class="badge bg-light text-dark">
-                                <a target="_blank" href="http://www.digital.ntu.edu.tw/" title="臺灣大學數位人文研究中心">臺灣大學數位人文研究中心</a>
-                            </span>
-                        </li>
-                    </td>
+                    <p style="margin-bottom: 30px;">
+                        <a class="linkLabelBGColor" style="text-decoration:none;color:black;" target="_blank" href="http://www.digital.ntu.edu.tw/" title="臺灣大學數位人文研究中心">臺灣大學數位人文研究中心</a>
+                    </p>
                 </tr>
                 <tr>
-                    <td>
-                        <li>
-                            <span class="tbody_link_span">
-                                <a target="_blank" href="https://www.drnh.gov.tw" title="國史館">國史館</a>
-                            </span>
-                        </li>
-                    </td>
+                    <p style="margin-bottom: 30px;">
+                        <a class="linkLabelBGColor" style="text-decoration:none;color:black;" target="_blank" href="https://www.drnh.gov.tw" title="國史館">國史館</a>
+                    </p>
                 </tr>
                 <tr>
-                    <td>
-                        <li>
-                            <span class="tbody_link_span">
-                                <a target="_blank" href="https://www.th.gov.tw" title="國史館臺灣文獻館">國史館臺灣文獻館</a>
-                            </span>
-                        </li>
-                    </td>
+                    <p style="margin-bottom: 30px;">
+                        <a class="linkLabelBGColor" style="text-decoration:none;color:black;" target="_blank" href="https://www.th.gov.tw/" title="國史館臺灣文獻館">國史館臺灣文獻館</a>
+                    </p>
                 </tr>
                 <tr>
-                    <td>
-                        <li>
-                            <span class="tbody_link_span">
-                                <a target="_blank" href="https://zh.wikipedia.org/wiki/臺灣省諮議會" title="臺灣省諮議會">臺灣省諮議會</a>
-                            </span>
-                        </li>
-                    </td>
+                    <p style="margin-bottom: 30px;">
+                        <a class="linkLabelBGColor" style="text-decoration:none;color:black;" target="_blank" href="https://zh.wikipedia.org/wiki/臺灣省諮議會" title="臺灣省諮議會">臺灣省諮議會</a>
+                    </p>
                 </tr>
-            </tbody>
-        </div>	
-			
+            </table>
+        
+          
+        </div>		
     </div>
-    <div style="margin-bottom: 13%;"></div>
+
+
+    <div style="margin-bottom: 450px;"></div>
 </template>
 
 
@@ -65,3 +52,11 @@ components: {
   }
 }
 </script>
+
+<style>
+    .linkLabelBGColor:hover {
+        background-color: #bf9a0b;
+        border-radius: 2px 2px 2px 2px;
+    }
+</style>
+

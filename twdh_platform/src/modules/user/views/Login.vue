@@ -1,37 +1,38 @@
 <template>
-  <main class="main">
-    <div class="account">
-      <div class="container">
-        <h1 class="account__title">請輸入帳號密碼</h1>
-        <div class="account__form">
-          <Form @submit="fieldCheck">
-            <Field 
-              type="text"
-              class="txt"
-              placeholder="帳號"
-              name="account"
-            />
-            <Field  
-              type="password"
-              class="txt" 
-              placeholder="密碼"
-              name="password"
-            />
-            <button class="btn btn--brand btn--boxshadow w--100">登 入</button>
-              <router-link :to="{ name: 'ForgetPass' }" class="forgetpass__router"
-                >忘記密碼？</router-link
-              >
-            <div class="account__footer">
-              <span>尚未申請帳號？</span>
-              <router-link :to="{ name: 'Register' }" class="account__router"
-                >前往申請頁面</router-link
-              >
-            </div>
-          </Form>
+  <div style="margin-top: 200px;">
+    <div style="text-align: center; margin-bottom: 50px;"><h3>請輸入帳號密碼</h3></div>
+    <div>
+      <Form @submit="fieldCheck">
+        <label class="form-label">帳 號：</label>
+        <Field 
+          type="text"
+          class="form-control form-control-lg"
+          name="account"
+        /><br>
+        <label class="form-label">密 碼：</label>
+        <Field  
+           type="password"
+           class="form-control form-control-lg" 
+          name="password"
+        />
+        <div class="d-grid gap-2" style="margin-top: 20px;">
+          <button class="btn btn-primary">登 入</button>      
         </div>
-      </div>
+
+        <div style="margin-top: 60px; font-size: 14px;"> 
+          <router-link :to="{ name: 'ForgetPass' }"
+            >忘記密碼？</router-link
+          ><br><br>
+
+          <router-link :to="{ name: 'Register' }"
+            >尚未申請帳號？</router-link
+          >
+        </div>
+      </Form>
     </div>
-  </main>
+  </div>
+
+  <div style="margin-bottom: 100px;"></div>
 </template>
 
 <script>

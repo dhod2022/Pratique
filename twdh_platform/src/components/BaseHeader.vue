@@ -1,7 +1,12 @@
 <template>
   <div class="fixed-top">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid"> 
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <div style="margin-left: 50px; margin-right: 40px;">
+            <img src="@/assets/img/brand.png" alt="" width="25" height="30">
+          </div>
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

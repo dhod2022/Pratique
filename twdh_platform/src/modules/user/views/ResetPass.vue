@@ -1,36 +1,34 @@
 <template>
-  <main class="main">
-    <div class="account">
-      <div class="container">
-        <h1 class="account__title">{{ userNameLabel }} 申請修改密碼</h1>
-        <div class="account__form">
-          <Form @submit="resetCheck">
-            <Field 
-              type="password"
-              class="txt"
-              placeholder="舊密碼"
-              name="old_psw"
-            />
-            <Field 
-              type="password"
-              class="txt"
-              placeholder="新密碼"
-              name="new_psw"
-            />
-            <Field 
-              type="password"
-              class="txt"
-              placeholder="請再輸入新密碼一次"
-              name="new_psw_again"
-            />
-            <button class="btn btn--brand btn--boxshadow w--100">送 出</button> 
-            <div class="account__footer_resetpass">       
-            </div>
-          </Form>
+  <div style="margin-top: 200px;">
+    <div style="text-align: center; margin-bottom: 50px;"><h3>申請修改密碼</h3></div>
+    <div>
+      <Form @submit="resetCheck">
+        <label class="form-label">舊密碼：</label>
+        <Field 
+          type="password"
+          class="form-control form-control-lg"
+          name="old_psw"
+        /><br>
+        <label class="form-label">新密碼：</label>
+        <Field 
+          type="password"
+          class="form-control form-control-lg"
+          name="new_psw"
+        /><br>
+        <label class="form-label">請再輸入新密碼一次：</label>
+        <Field 
+          type="password"
+          class="form-control form-control-lg"
+          name="new_psw_again"
+        /><br>
+        <div class="d-grid gap-2" style="margin-top: 20px;">
+          <button class="btn btn-primary">送 出</button>      
         </div>
-      </div>
+      </Form>
     </div>
-  </main>
+  </div>
+
+  <div style="margin-bottom: 100px;"></div>
 </template>
 
 <script>

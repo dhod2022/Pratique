@@ -1,51 +1,48 @@
 <template>
-  <main class="main">
-    <div class="account">
-      <div class="container">
-        <h1 class="account__title">帳號申請</h1>
-        <div class="account__form">
-          <Form @submit="handleRegisterCheck">
-            <Field 
-              type="text"
-              class="txt"
-              placeholder="電子信箱"
-              name="email"
-            />
-            <span class="register_password_apply">* 本中心同意後，密碼將寄至此信箱</span>
-            <Field 
-              type="text"
-              class="txt"
-              placeholder="姓名"
-              name="realname"
-            />
-            <Field 
-              type="text"
-              class="txt"
-              placeholder="所屬單位及職稱"
-              name="job_title"
-            />
-            <Field 
-              type="text"
-              class="txt"
-              placeholder="申請用途簡述"
-              name="research_description"
-            />
-            <button
-              class="btn_register btn--brand btn--boxshadow w--100"
-            >
-              送出申請資料
-            </button>
-            <div class="account__footer">
-              <span>已有帳號？</span>
-              <router-link :to="{ name: 'Login' }" class="account__router"
-                >前往登入頁面</router-link
-              >
-            </div>
-          </Form>
+  <div style="margin-top: 200px;">
+    <div style="text-align: center; margin-bottom: 50px;"><h3>帳號申請</h3></div>
+    <div>
+      <Form @submit="handleRegisterCheck">        
+        <label class="form-label">電子信箱：</label>
+        <Field 
+          type="text"
+          class="form-control form-control-lg"
+          name="email"
+        /><br>
+        <span class="register_password_apply">* 本中心同意後，密碼將寄至此信箱</span>
+        <label class="form-label">姓名：</label>
+        <Field 
+          type="text"
+          class="form-control form-control-lg"
+          name="realname"
+        /><br>
+        <label class="form-label">所屬單位及職稱：</label>
+        <Field 
+          type="text"
+          class="form-control form-control-lg"
+          name="job_title"
+        /><br>
+        <label class="form-label">申請用途簡述：</label>
+        <Field 
+          type="text"
+          class="form-control form-control-lg"
+          name="research_description"
+        /><br>
+        <div class="d-grid gap-2" style="margin-top: 8px;">
+          <button class="btn btn-primary">送出申請資料</button>      
         </div>
-      </div>
+        <div style="margin-top: 40px; font-size: 14px;"> 
+          <router-link :to="{ name: 'Login' }"
+            >前往登入頁面</router-link
+          >
+        </div>
+      </Form>
     </div>
-  </main>
+  </div>
+
+
+
+  <div style="margin-bottom: 100px;"></div>
 </template>
 
 <script>
