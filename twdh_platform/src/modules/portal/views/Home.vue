@@ -21,10 +21,13 @@
   
 
     
-
-    
+  
     <LayerFlow />
-
+    <p style="margin-top: 100px; text-align: center; font-size: 55px;  font-weight: bold; font-style: italic;">
+      <span style="color: #C48888;">One-Stop Services. </span>
+      <span style="color: #FFAD86;">Simple Work Flow. </span>
+    </p>
+    <p style="color: #5B5B5B; text-align: center; font-style: italic; font-weight: bold; font-size: 25px;">快點選按鈕開始使用吧！</p>
   </div>
 
 

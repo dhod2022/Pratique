@@ -18,8 +18,8 @@ export default [
     }
   },
   {
-    path: '/relatedlink',
-    name: 'RelatedLink',
-    component: () => import(/* webpackChunkName: "relatedlink" */ '../views/RelatedLink.vue')
+    path: '/relatedInfo',
+    name: 'RelatedInfo',
+    component: () => import(/* webpackChunkName: "relatedInfo" */ '../views/RelatedInfo.vue')
   },
 ]

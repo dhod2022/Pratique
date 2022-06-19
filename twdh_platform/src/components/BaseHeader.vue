@@ -33,21 +33,21 @@
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Open Data
               </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <router-link 
-                    :to="{ name: 'Retrieval' }" 
-                    class="dropdown-item"
-                  >整合檢索</router-link
-                  >
-                </li>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">            
                 <li>
                   <router-link 
                     :to="{ name: 'OpendataIndex' }" 
                     class="dropdown-item"
                   >Open Data 服務</router-link
                   >
-                </li>        
+                </li>  
+                <li>
+                  <router-link 
+                    :to="{ name: 'Retrieval' }" 
+                    class="dropdown-item"
+                  >整合檢索視覺化服務</router-link
+                  >
+                </li>      
               </ul>
             </li>
 
@@ -58,8 +58,8 @@
               >
             </li>    
             <li class="nav-item">
-              <router-link :to="{ name: 'RelatedLink' }" class="nav-link"
-                >相關連結</router-link
+              <router-link :to="{ name: 'RelatedInfo' }" class="nav-link"
+                >相關資訊</router-link
               >
             </li>
           </ul>
