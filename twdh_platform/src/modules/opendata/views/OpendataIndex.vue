@@ -61,6 +61,7 @@
               <div class="rowBlock"><span class="tag-first">題名</span><span class="content-first">{{doc.題名}}</span></div>
               <div class="rowBlock"><span class="tag">id</span><span class="content">{{doc.ID}}</span></div>
               <div class="rowBlock"><span class="tag">metadata id</span><span class="content">{{doc.Metadata_ID}}</span></div>
+              <div class="rowBlock"><span class="tag">典藏號</span><span class="content">{{doc.典藏號}}</span></div>
               <div class="rowBlock"><span class="tag">來源系統</span><span class="content">{{doc.來源系統}}</span></div>
               <div class="rowBlock"><span class="tag">類目階層</span><span class="content">{{doc.類目階層}}</span></div>
               <div class="rowBlock"><span class="tag">時間</span><span class="content">{{doc.原始時間記錄}}</span></div>
@@ -85,18 +86,10 @@
   <div v-else>
     <h2 style="padding-left:20px">請先登入</h2>
   </div>
-  <ButtonNext :label="{label: '前往 T-DocuSky 服務 →'}" />
-  <ButtonPrev :label="{label: '← 返回史料脈絡分析系統'}" />
-  <!--
-  <div style="display:flex;justify-content: center;">
-    <div class="button_system_prev_div" style="position:relative;right:34%;">
-      <button class="button_system_prev" @click="prevPage">← 返回史料脈絡分析系統</button>
-    </div>
-    <div class="button_system_next_div" style="position:relative;left:34%;">
-      <button class="button_system_next" @click="nextPage">前往 T-DocuSky 服務 →</button>
-    </div>
+  <div>
+    <div style="margin-top: 5%;"><ButtonPrev :label="{label: '← 返回 史料脈絡分析系統'}" /></div>
+    <div style="margin-top: -11.8%;"><ButtonNext :label="{label: '前往 T-DocuSky 服務 →'}" /></div>
   </div>
-  --->
 </template>
 
 
@@ -157,6 +150,7 @@ export default {
     },
 
     getDocs(dirName) {
+      console.log("getting documents from directory: " + dirName);
       axios({
           credentials: "include",
           method: "get",
@@ -239,10 +233,13 @@ export default {
     },
 
     submitCSV(){
+      console.log("submit clicked");
       let formData = new FormData();
       formData.append('submitCSV', this.csvFile);
       formData.append('username', this.username);
       formData.append('dirName', this.curDir);
+      console.log("post the csv by axios...");
+      console.log("post addr:" + curBackend + "uploadCSV.php");
       axios.post(curBackend + 'uploadCSV.php',
         formData,
         {
@@ -254,8 +251,10 @@ export default {
         (response) => {
           console.log("no error in submit csv");
           console.log(response.data);
+          alert(response.data);
           this.csvFile = '';
           this.$refs.csvFile.value = null;
+          this.getDocs(this.curDir);
         }
       )
       .catch(function(error){
@@ -270,6 +269,7 @@ export default {
 
     copyDoc() {
       let stopCopy = false;
+      let allSuccess = true;
       console.log(this.copyTargetDir);
       if(this.copyTargetDir == '') {
         alert("請選擇目標資料夾後再點選此按鈕");
@@ -286,7 +286,7 @@ export default {
               credentials: "include",
               method: "get",
               url: curBackend + "copyDoc.php",
-              params: {username: this.username, docID: doc.Metadata_ID, targetDir: this.copyTargetDir},
+              params: {username: this.username, docID: doc.ID, targetDir: this.copyTargetDir},
               headers: {"Content-Type": "application/json"},
               crossdomain: true,
           }).then(
@@ -298,15 +298,19 @@ export default {
             // Error handling
             console.log("error: in method copyDoc()");
             console.error(error);
+            allSuccess = false;
           })
         )
-        alert("成功複製文件");
+        if(allSuccess) {
+          alert("成功複製文件");
+        }
         this.copyTargetDir = ''
       }
     },
    
     moveDoc() {
       let stopMove = false;
+      let allSuccess = true;
       console.log(this.checkedDocs);
       if(this.moveTargetDir == '') {
         alert("請選擇目標資料夾後再點選此按鈕");
@@ -323,60 +327,56 @@ export default {
               credentials: "include",
               method: "get",
               url: curBackend + "moveDoc.php",
-              params: {username: this.username, docID: doc.ID, docMetaID: doc.Metadata_ID, targetDir: this.moveTargetDir},
+              params: {username: this.username, docID: doc.ID, targetDir: this.moveTargetDir},
               headers: {"Content-Type": "application/json"},
               crossdomain: true,
           }).then(
               (response) => {
+                console.log("move documents success");
                 console.log(response.data);
               }
           ).catch(function(error){ 
             // Error handling
+            allSuccess = false;
             console.log("error: in method moveDoc()");
             console.error(error);
           })
         )
-        alert("成功移動文件");
+        if(allSuccess) {
+          alert("成功移動文件");
+        }
         this.getDocs(this.curDir);
         this.moveTargetDir = '';
       }
     },
 
     removeDoc() {
+      console.log("in remove documents");
       console.log(this.checkedDocs);
       if(confirm("確認要刪除這些文件嗎？") == true) {
         this.checkedDocs.forEach(doc =>
-            axios({
-                credentials: "include",
-                method: "get",
-                url: curBackend + "removeDoc.php",
-                params: {username: this.username, docID: doc.ID},
-                headers: {"Content-Type": "application/json"},
-                crossdomain: true,
-            }).then(
-                (response) => {
-                  console.log(response.data);
-                  if(response.data == true) {
-                    alert("刪除成功");
-                  }
+          axios({
+              credentials: "include",
+              method: "get",
+              url: curBackend + "removeDoc.php",
+              params: {username: this.username, docID: doc.ID},
+              headers: {"Content-Type": "application/json"},
+              crossdomain: true,
+          }).then(
+              (response) => {
+                console.log(response.data);
+                if(response.data == true) {
+                  alert("刪除成功");
                 }
-            ).catch(function(error){ 
-              // Error handling
-              console.log("error: in method removeDoc()");
-              console.error(error);
-            })
-          )
-        
-        this.getDocs(this.curDir);
+              }
+          ).catch(function(error){ 
+            // Error handling
+            console.log("error: in method removeDoc()");
+            console.error(error);
+          })
+        )
       }
-    },
-
-    prevPage(){
-      this.$router.push({ name: this.$router.currentRoute.value.meta.prev });
-    },
-
-    nextPage(){
-      this.$router.push({ name: this.$router.currentRoute.value.meta.next });
+      this.getDocs(this.curDir);
     },
   },
   mounted() {
@@ -384,7 +384,7 @@ export default {
     axios({
         credentials: "include",
         method: "get",
-        url: curBackend + "getUsername.php",
+        url: curBackend + "getUsernameFake.php",
         params: {},
         headers: {"Content-Type": "application/json"},
         crossdomain: true,
